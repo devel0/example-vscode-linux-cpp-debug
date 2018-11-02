@@ -2,7 +2,7 @@
 
 skeleton of c++ application in linux using makefile and vscode debug
 
-![img](doc/Selection_01.png)
+![img](doc/Selection_001.png)
 
 ## build
 
