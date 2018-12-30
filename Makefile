@@ -1,30 +1,23 @@
-#INCLUDE = -I/usr/X11R6/include/
-#LIBDIR  = -L/usr/X11R6/lib
+CXX		  := g++
+CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
 
-INCLUDE =
-LIBDIR =
+BIN		:= bin
+SRC		:= src
+INCLUDE	:= include
+LIB		:= lib
 
-FLAGS = -Wall
-CC = g++
-CFLAGS = $(FLAGS) $(INCLUDE) -g
-#LIBS = -lglut -lGL -lm -lGLU -lpthread
-LIBS =
+LIBRARIES	:=
+EXECUTABLE	:= main
 
-All: pre bin/test
+
+all: $(BIN)/$(EXECUTABLE)
+
+run: clean all
+	clear
+	./$(BIN)/$(EXECUTABLE)
+
+$(BIN)/$(EXECUTABLE): $(SRC)/*.cpp
+	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
 
 clean:
-	rm -fr bin
-
-pre:
-	mkdir -p bin
-
-bin/%.o: %.cc
-	$(CC) -c $(CFLAGS) -o $@ $<
-
-bin/%.o: %.cc %.h
-	$(CC) -c $(CFLAGS) -o $@ $<
-
-objects = bin/test.o
-
-bin/test: $(objects)
-	$(CC) $(CFLAGS) -o $@ $(LIBDIR) $(objects) $(LIBS)
+	-rm $(BIN)/*
